@@ -237,7 +237,7 @@ void ThongBao::ThongBaoDichVuKH(const string &filedichvu, const string &filephon
         }
     }
     // Lưu tất cả thông báo vào file sau khi xử lý xong
-    saveNotifications();
+    // saveNotifications();
 
     infile1.close();
     infile2.close();
