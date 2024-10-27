@@ -18,6 +18,7 @@ public:
     void guiThongBaoKiemTraPhong(const string &filePhong);
     //thông báo lương cho nv
     void GuiThongBaoLuongThuong(const string &fileNhanVien);
+    void saveNotifications();
 
 private:
     vector<string> noidungthongbao; // Lưu trữ thông báo đã gửi

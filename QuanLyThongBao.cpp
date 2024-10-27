@@ -146,34 +146,99 @@ void ThongBao::GuiThongBaoLuongThuong(const string &fileNhanVien){
     infile.close();
 }
 
+void ThongBao::saveNotifications(){
+    ofstream outfile("logs/ThongBao.txt");
+    if(!outfile.is_open()) {
+        cout << "Khong the mo file ThongBao.txt de ghi." << endl;
+        return;
+    }
+     for (const auto& message : noidungthongbao) {
+        outfile << message << endl; // Ghi từng thông báo vào file
+    }
+
+    outfile.close();
+}
+
+
 void ThongBao::ThongBaoDichVuKH(const string &filedichvu, const string &filephong){
     ifstream infile1(filedichvu);
     ifstream infile2(filephong);
-    string dichvu, phong;
-    while(getline(infile1, dichvu) && getline(infile2, phong)){
-        stringstream dv(dichvu);
+    string dichvu;
+    // Đảm bảo cả hai file đều mở thành công
+    if (!infile1.is_open() || !infile2.is_open()) {
+        cout << "Khong the mo mot trong hai file." << endl;
+        return;
+    }
+    // Đọc tất cả các dịch vụ
+    vector<string> dichVuList;
+    while(getline(infile1, dichvu)) {
+        dichVuList.push_back(dichvu);
+    }
+    // Đọc thông tin từ file phòng
+    vector<string> phongList;
+    while(getline(infile2, dichvu)){
+        phongList.push_back(dichvu);
+    }
+    // Lặp qua từng phòng để xử lý từng khách hàng
+    for(const auto& p : phongList) {
+        stringstream ss(p);
+        string makh, soPhong, ngayNhan, ngayTra, trangThaiPhong;
 
-        string tendv, trangthai;
-        int gia;
-        getline(dv, tendv, ',');// lấy dịch vụ tên
-        dv >> gia;
-        dv.ignore();
-        getline(dv, trangthai, ',');
-
-        stringstream ss(phong);
-        string makh, soPhong, ngayNhan, ngayTra, trangThai;
-        getline(ss, makh, ','); // lấy mã khách hàng
-        getline(ss, soPhong, ','); //lấy mã phòng
+        getline(ss, makh, ',');  // Lấy mã khách hàng
+        getline(ss, soPhong, ',');      // Lấy số phòng
         getline(ss, ngayNhan, ',');
         getline(ss, ngayTra, ',');
-        getline(ss, trangThai, ',');
-
-        string message = "Thong Bao Den Nhan Vien: Khach Hang Co Ma " + makh + " O Phong: " + soPhong + " Yeu Cau Dich Vu: " + tendv; 
-        noidungthongbao.push_back(message);
-        cout << message << endl;
-        saveNotification(message);
+        getline(ss, trangThaiPhong, ',');  // Lấy trạng thái phòng
+        // Kiểm tra trạng thái phòng
+        if(trangThaiPhong == "Da Dat") {
+            cout << "Khach hang " << makh << " o phong " << soPhong << " co the yeu cau dich vu:";
+            // Hiển thị danh sách dịch vụ
+            cout << "Danh sach dich vu:" << endl;
+            for(size_t i = 0; i<dichVuList.size() ; i++) {
+                stringstream dv(dichVuList[i]);
+                string tendv;
+                getline(dv, tendv, ','); // lấy tên dv
+                cout << i+1 <<". "<< tendv << endl; // hiển thị số dịch vụ
+            }
+            // Yêu cầu người dùng chọn dịch vụ
+            int choice;
+            cout << "Nhap dich vu ban lua chon: 1-" << dichVuList.size() <<  "): ";
+            cin >> choice;
+            if(choice < 1 || choice > dichVuList.size()) {
+                cout << "lua chon khong hop le!" << endl;
+                continue; // chuyênr qua hàng tiếp theo
+            }
+            // Lấy dịch vụ đã chọn
+            string selectedService = dichVuList[choice-1];
+            stringstream dvStream(selectedService);
+            string tendv, trangthaiDichVu;
+            int gia;
+            getline(dvStream, tendv, ',');// lấy tên dịch vụ
+            cin >> gia;
+            dvStream.ignore();
+            getline(dvStream, trangthaiDichVu, ','); // lấy trạng thái dịch vụ
+            // Kiểm tra trạng thái dịch vụ và thông báo
+            if(trangthaiDichVu == "hoat dong") {
+                // Tạo thông báo nếu dịch vụ hoạt động
+                string message = "Thong Bao Den Nhan Vien: Khach Hang Co Ma " + makh + " O Phong: " + soPhong + " Yeu Cau Dich Vu: " + tendv;
+                noidungthongbao.push_back(message);
+                cout << message << endl;
+                saveNotification(message);
+            }
+            else if(trangthaiDichVu == "ngung") {
+                string message = "Xin loi Khach Hang Co Ma " + makh + " O Phong: " + soPhong + ", Dich Vu: " + tendv + " hien khong kha dung.";
+                noidungthongbao.push_back(message);
+                cout << message << endl;
+                saveNotification(message);
+            }
+        }
+        else {
+            cout <<  "Khach hang " << makh << " o phong " << soPhong << " chua dat phong." << endl;
+        }
     }
+    // Lưu tất cả thông báo vào file sau khi xử lý xong
+    saveNotifications();
+
     infile1.close();
     infile2.close();
 }
-
