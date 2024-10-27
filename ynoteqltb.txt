@@ -1,0 +1,312 @@
+#include<bits/stdc++.h>
+#include "QuanLyThongBao.h"
+
+using namespace std;
+
+// Constructor
+ThongBao::ThongBao() {}
+ThongBao::ThongBao(
+    string madatphong, string ngaydat,
+    string ngaytra, string maphong,
+    string loaiphong, string hang,
+    string mkh, string tenkh,
+    string cmnd, string dob,
+    string diachi, string email
+) : KhachHang(mkh, tenkh, cmnd, dob, diachi, email), // Khởi tạo lớp cha
+    Phong(maphong, loaiphong, hang) // Khởi tạo lớp cha
+{
+    this->madatphong = madatphong;
+    this->ngaydat = ngaydat;
+    this->ngaytra = ngaytra;
+}
+// Nhập thông tin
+
+void ThongBao::luuThongBao() {
+    ofstream outFile("logs/ThongBao.txt", ios::app); // Mở file ở chế độ thêm
+    if (outFile.is_open()) {
+        outFile << "Thong Bao Dat Phong" << endl;
+        outFile << "Ma Dat Phong: " << madatphong << endl;
+        outFile << "Ngay Dat: " << ngaydat << endl;
+        outFile << "Ngay Tra: " << ngaytra << endl;
+        outFile << "Ma Phong: " << getMaPhong() << endl; // Sử dụng getter
+        outFile << "Loai Phong: " << getLoaiPhong() << endl; // Sử dụng getter
+        outFile << "Hang Phong: " << getHang() << endl; // Sử dụng getter
+        outFile << "Ma Khach Hang: " << getMaKhachHang() << endl; // Sử dụng getter
+        outFile << "Ten Khach Hang: " << getTen() << endl; // Sử dụng getter
+        outFile << "CMND: " << getCMND() << endl; // Sử dụng getter
+        outFile << "Ngay Sinh: " << getDoB() << endl; // Sử dụng getter
+        outFile << "Dia Chi: " << getDiaChi() << endl; // Sử dụng getter
+        outFile << "Email: " << getEmail() << endl; // Sử dụng getter
+        outFile << "-------------------------------------" << endl;
+        outFile.close();
+    } else {
+        cerr << "Khong The Mo File De Luu Thong Bao." << endl;
+    }
+}
+
+void ThongBao::nhapthongtin() {
+    cout << "Ma Phieu: ";
+    cin >> madatphong;
+    cout << "Ngay Dat Phong: ";
+    cin >> ngaydat;
+    cout << "Ngay Tra Phong: ";
+    cin >> ngaytra;
+    KhachHang::nhapthongtin(); // Gọi phương thức nhập thông tin từ lớp KhachHang
+    Phong::nhapthongtin(); // Gọi phương thức nhập thông tin từ lớp Phong
+    luuThongBao();
+}
+//lưu thông tin vào file 
+
+// Lưu thông tin vào file
+void ThongBao::themthongtin() {
+    ofstream outFile("logs/ThongBao.txt", ios::app);
+    if (outFile.is_open()) {
+        outFile << "Thong Bao Dat Phong" << endl;
+        outFile << "Ma Dat Phong: " << madatphong << endl;
+        outFile << "Ngay Dat: " << ngaydat << endl;
+        outFile << "Ngay Tra: " << ngaytra << endl;
+        outFile << "Ma Phong: " << getMaPhong() << endl; // Sử dụng getter
+        outFile << "Loai Phong: " << getLoaiPhong() << endl; // Sử dụng getter
+        outFile << "Hang Phong: " << getHang() << endl; // Sử dụng getter
+        outFile << "Ma Khach Hang: " << getMaKhachHang() << endl; // Sử dụng getter
+        outFile << "Ten Khach Hang: " << getTen() << endl; // Sử dụng getter
+        outFile << "CMND: " << getCMND() << endl; // Sử dụng getter
+        outFile << "Ngay Sinh: " << getDoB() << endl; // Sử dụng getter
+        outFile << "Dia Chi: " << getDiaChi() << endl; // Sử dụng getter
+        outFile << "Email: " << getEmail() << endl; // Sử dụng getter
+        outFile << "-------------------------------------" << endl;
+        outFile.close();
+    } else {
+        cerr << "Khong The Mo File De Luu Thong Bao." << endl;
+    }
+}
+
+void ThongBao::docthongbao() {
+    ifstream infile("logs/ThongBao.txt");
+    if(infile.is_open()) {
+        string line;
+        while(getline(infile, line)){
+            cout << line <<endl;
+        }
+        infile.close();
+    }
+    else {
+        cerr << "Khong The Mo File De Luu Thong Bao." << endl;
+    }
+}
+
+void ThongBao::xuatphieu() {
+    cout<<"-------------------------------------------------------\n";
+    cout<<"\t	PHIEU DAT PHONG	\n\n";
+    cout << "Ma Phieu: " << madatphong << endl;
+    cout << "Ngay Dat: " << ngaydat << endl;
+    cout << "Ngay Tra: " << ngaytra << endl;
+    cout<<"\t	Thong Tin Dat Phong:\n\n";
+    cout << "Ma Phong: " << getMaPhong() << endl;
+    cout << "Loai Phong: " << getLoaiPhong() << endl;
+    cout << "Hang: " << getHang() << endl;
+    cout<<"\t	Thong Tin Khach Hang:\n\n";
+    cout << "Ma Khach Hang: " << getMaKhachHang() << endl;
+    cout << "Ten Khach Hang: " << getTen() << endl;
+    cout << "CMND: " << getCMND() << endl;
+    cout << "Ngay Sinh: " << getDoB() << endl;
+    cout << "Dia Chi: " << getDiaChi() << endl;
+    cout << "Email: " << getEmail() << endl;
+    cout << "------------------------------------" << endl;
+}
+
+void ThongBao::xoakhachhangquahan(){
+    // Lấy thời gian hiện tại
+    time_t now = time(0);
+    tm* ltm = localtime(&now);
+    int currentYear = 1900 + ltm->tm_year;
+    int currentMonth = 1 + ltm->tm_mon;
+    int currentDay = ltm->tm_mday;
+    // Chuyển đổi ngày trả phòng thành định dạng int
+    int Ngaytra = stoi(ngaytra.substr(0,2));
+    int thangtra = stoi(ngaytra.substr(3,2));
+    int namtra = stoi(ngaytra.substr(6,4));
+    // Nếu ngày trả phòng đã qua thì xóa khách hàng
+    if (namtra < currentYear || (namtra == currentYear && thangtra < currentMonth) || 
+        (namtra == currentYear && thangtra == currentMonth && Ngaytra < currentDay)) {
+        vector<KhachHang> danhSach; 
+        KhachHang::xoakhachhang(danhSach, getTen());
+        cout << "Da xoa khach hang " << getTen() << endl;
+    }
+}
+
+void ThongBao::thongBaoTraPhong() {
+    cout << "-------------------------------------------------------\n";
+    cout << "\tTHONG BAO TRA PHONG\n\n";
+    cout << "Ma Phieu: " << madatphong << endl;
+    cout << "Ma Khach Hang: " << getMaKhachHang() << endl;
+    cout << "Ten Khach Hang: " << getTen() << endl;
+    cout << "Ma Phong: " << getMaPhong() << endl;
+    cout << "Ngay Tra: " << ngaytra << endl;
+    cout << "Cam On Quy Khach Da Su Dung Dich Vu Cua Chung Toi!\n";
+    cout << "Chuc Quy Khach Mot Ngay Tot lanh!\n";
+    cout << "-------------------------------------------------------\n";
+}
+
+void ThongBao::suathongbao() {
+    cout << "Nhap Ma Phieu Can Sua: ";
+    cin.ignore();
+    getline(cin, madatphong);
+
+    ifstream infile("logs/ThongBao.txt"); // Sửa tên file
+    if (!infile.is_open()) { // Sửa tên biến từ 'file' sang 'infile'
+        cerr << "Khong The Mo Duoc File!" << endl;
+        return;
+    }
+
+    vector<string> lines;
+    string line;
+    bool found = false;
+
+    while (getline(infile, line)) {
+        if (line.find("Ma Dat Phong: " + madatphong) != string::npos) { // Sửa điều kiện tìm kiếm
+            found = true;
+            cout << "Tim Thay Ma Phieu: " << line << endl;
+
+            // Nhập thông tin mới
+            cout << "Nhap Ma Phieu Moi: ";
+            getline(cin, madatphong);
+            cout << "Nhap Ngay Dat: ";
+            getline(cin, ngaydat);
+            cout << "Nhap Ngay Tra: ";
+            getline(cin, ngaytra);
+
+            // Nhập các thông tin khác
+            cout << "Ma Phong: ";
+            string maPhong;
+            getline(cin, maPhong);
+            setMaPhong(maPhong); // Sử dụng setter
+
+            cout << "Loai Phong: ";
+            string loaiPhong;
+            getline(cin, loaiPhong);
+            setLoaiPhong(loaiPhong); // Sử dụng setter
+
+            cout << "Hang Phong: ";
+            string hangPhong;
+            getline(cin, hangPhong);
+            setHang(hangPhong); // Sử dụng setter
+
+            cout << "Ma Khach Hang: ";
+            string maKhachHang;
+            getline(cin, maKhachHang);
+            setMaKhachHang(maKhachHang); // Sử dụng setter
+
+            cout << "Ten Khach Hang: ";
+            string tenKhachHang;
+            getline(cin, tenKhachHang);
+            setTen(tenKhachHang); // Sử dụng setter
+
+            cout << "CMND: ";
+            string cmnd;
+            getline(cin, cmnd);
+            setCMND(cmnd); // Sử dụng setter
+
+            cout << "Ngay Sinh: ";
+            string dob;
+            getline(cin, dob);
+            setDoB(dob); // Sử dụng setter
+
+            cout << "Dia Chi: ";
+            string diaChi;
+            getline(cin, diaChi);
+            setDiaChi(diaChi); // Sử dụng setter
+
+            cout << "Email: ";
+            string email;
+            getline(cin, email);
+            setEmail(email); // Sử dụng setter
+        }
+        lines.push_back(line);
+    }
+    luuThongBao();
+    infile.close();
+
+    if (!found) {
+        cout << "Khong Tim Thay Thong Bao!" << endl;
+        return;
+    }
+
+    ofstream outfile("logs/ThongBao.txt");
+    if (!outfile.is_open()) {
+        cerr << "Khong Mo Duoc File!" << endl;
+        return; // Thêm return để không tiếp tục nếu file không mở
+    }
+
+    for (const auto& l : lines) {
+        if (l.find("Ma Dat Phong: " + madatphong) != string::npos) {
+            // Ghi lại thông tin đã sửa
+            outfile << "Thong Bao Dat Phong\n";
+            outfile << "Ma Dat Phong: " << madatphong << endl;
+            outfile << "Ngay Dat: " << ngaydat << endl;
+            outfile << "Ngay Tra: " << ngaytra << endl;
+            outfile << "Ma Phong: " << getMaPhong() << endl; // Sử dụng getter
+            outfile << "Loai Phong: " << getLoaiPhong() << endl; // Sử dụng getter
+            outfile << "Hang Phong: " << getHang() << endl; // Sử dụng getter
+            outfile << "Ma Khach Hang: " << getMaKhachHang() << endl; // Sử dụng getter
+            outfile << "Ten Khach Hang: " << getTen() << endl; // Sử dụng getter
+            outfile << "CMND: " << getCMND() << endl; // Sử dụng getter
+            outfile << "Ngay Sinh: " << getDoB() << endl; // Sử dụng getter
+            outfile << "Dia Chi: " << getDiaChi() << endl; // Sử dụng getter
+            outfile << "Email: " << getEmail() << endl; // Sử dụng getter
+        } else {
+            outfile << l << endl;
+        }
+    }
+    outfile.close();
+    cout << "Da Cap Nhat Thong Bao!" << endl;
+}
+
+
+void ThongBao::thongBaoKhachHang() {
+    // Đọc dữ liệu từ các file
+    ifstream khachHangFile("KhachHang.txt");
+    ifstream phongFile("Phong.txt");
+    ifstream datPhongFile("DatPhong.txt");
+    ofstream thongBaoFile("logs/ThongBao.txt", ios::app); // Ghi thêm vào file
+
+    if (!khachHangFile.is_open() || !phongFile.is_open() || !datPhongFile.is_open() || !thongBaoFile.is_open()) {
+        cerr << "Error opening files!" << endl;
+        return;
+    }
+
+    string line;
+    
+    // Đọc từ file DatPhong.txt và tạo thông báo
+    while (getline(datPhongFile, line)) {
+        // Giả sử format dòng trong DatPhong.txt là: mã phiếu, ngày đặt, ngày trả
+        stringstream ss(line);
+        string maPhieu, ngayDat, ngayTra;
+        getline(ss, maPhieu, ',');
+        getline(ss, ngayDat, ',');
+        getline(ss, ngayTra, ',');
+
+        // Tạo thông báo
+        thongBaoFile << "Thông báo đến khách hàng: Mã phiếu: " << maPhieu
+                      << ", Ngày đặt: " << ngayDat
+                      << ", Ngày trả: " << ngayTra << endl;
+    }
+
+    // Đọc từ file KhachHang.txt
+    while (getline(khachHangFile, line)) {
+        thongBaoFile << "Thông báo đến khách hàng: " << line << endl;
+    }
+
+    // Đọc từ file Phong.txt
+    while (getline(phongFile, line)) {
+        thongBaoFile << "Thông báo về phòng: " << line << endl;
+    }
+
+    // Đóng file
+    khachHangFile.close();
+    phongFile.close();
+    datPhongFile.close();
+    thongBaoFile.close();
+    
+    cout << "Thông báo đã được ghi vào logs/ThongBao.txt" << endl;
+}

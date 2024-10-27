@@ -1,0 +1,6 @@
+g++ main.cpp KhachHangModules.cpp
+./a.exe
+
+Việc thêm từ khóa const vào hàm như luuThongBao() là cần thiết khi bạn muốn đảm bảo rằng hàm này sẽ không thay đổi trạng thái của đối tượng mà nó đang được gọi trên
+g++ main.cpp KhachHangModules.cpp PhongModules.cpp QuanLyThongBao.cpp DichVu.cpp QuanLyTungPhong.cpp QuanLyPhongKhachSan.cpp QuanLyDichVu.cpp QuanLyNhanSu.cpp
+g++ (các file .cpp) -o (tên file exe)
