@@ -125,3 +125,31 @@ void QuanLyDichVu::luuDanhSachRaFile() const {
         cout << "Khong the mo file de luu!\n";
     }
 }
+// Ham tim kiem dich vu
+void QuanLyDichVu::timDichVu() const {
+    if (danhSachDichVu.empty()) {
+        cout << "\nDanh sach dich vu trong!\n";
+        return;
+    }
+
+    string tenDichVu;
+    cout << "Nhap ten dich vu can tim: ";
+    cin.ignore();
+    getline(cin, tenDichVu);
+
+    bool found = false;
+    for (const auto& dv : danhSachDichVu) {
+        if (dv.tenDichVu == tenDichVu) {
+            cout << "Dich vu tim thay:\n";
+            cout << "Ten dich vu: " << dv.tenDichVu << "\n";
+            cout << "Gia: " << dv.gia << "\n";
+            cout << "Trang thai: " << dv.trangThai << "\n";
+            found = true;
+            break; // Nếu muốn tìm tất cả dịch vụ có cùng tên, hãy bỏ dòng này
+        }
+    }
+
+    if (!found) {
+        cout << "Khong tim thay dich vu \"" << tenDichVu << "\".\n";
+    }
+}

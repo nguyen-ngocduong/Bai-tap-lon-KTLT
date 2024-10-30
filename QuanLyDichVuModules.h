@@ -19,6 +19,7 @@ void QLDichVu() {
         cout << "3. Xoa dich vu\n";
         cout << "4. Sua thong tin dich vu\n";
         cout << "5. Luu danh sach ra file\n";
+        cout << "6. Tim Kiem Dich Vu\n";
         cout << "0. Thoat\n";
         cout << "Nhap lua chon cua ban: ";
         cin >> luaChon;
@@ -38,6 +39,9 @@ void QLDichVu() {
             break;
         case 5:
             qlDichVu.luuDanhSachRaFile();
+            break;
+        case 6:
+            qlDichVu.timDichVu();
             break;
         case 0:
             cout << "Thoat chuong trinh.\n";

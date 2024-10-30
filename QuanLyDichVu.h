@@ -29,6 +29,7 @@ public:
     void xoaDichVu();
     void suaDichVu();
     void luuDanhSachRaFile() const;
+    void timDichVu() const;
 };
 
 #endif
