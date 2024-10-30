@@ -14,7 +14,7 @@ private:
     string TrangThai;
 public:
     Phong();
-    Phong(string maphong, string maKH, string ngayDat, string ngayTra, string trangThai);
+    Phong(string maKH, string maphong, string ngayDat, string ngayTra, string trangThai);
     
     void nhapthongtin();
     void themphong(vector<Phong>& danhsachPhong, const string& maKhachHang, const string& ngayDat, const string& ngayTra);

@@ -5,8 +5,8 @@ using namespace std;
 
 Phong::Phong() {}
 
-Phong::Phong(string ma, string maKH, string ngayDat, string ngayTra, string trangThai)
-    : MaPhong(ma), MaKhachHang(maKH), NgayDatPhong(ngayDat), NgayTraPhong(ngayTra), TrangThai(trangThai) {}
+Phong::Phong(string maKH, string ma,  string ngayDat, string ngayTra, string trangThai)
+    : MaKhachHang(maKH),MaPhong(ma), NgayDatPhong(ngayDat), NgayTraPhong(ngayTra), TrangThai(trangThai) {}
 
 void Phong::nhapthongtin()  {
     cin.ignore();
