@@ -10,7 +10,7 @@ void quanlyKhachHang() {
     int choice;
     string makhachhang;
     vector<KhachHang> danhSach;
-    string ten;
+    string mkh;
     do {
         cout << "\n--- Quan Ly Khach Hang ---\n";
         cout << "1. Them Khach Hang\n";
@@ -33,22 +33,22 @@ void quanlyKhachHang() {
                 kh.docdanhsach(danhSach);
                 break;
             case 3:
-                cout << "Nhap ten khach hang can tim: ";
+                cout << "Nhap ma khach hang can tim: ";
                 cin.ignore();
-                getline(cin, ten);
-                kh.timKiemKhachHang(danhSach, ten);
+                getline(cin, mkh);
+                kh.timKiemKhachHang(danhSach, mkh);
                 break;
             case 4:
-                cout << "Nhap ten khach hang can sua: ";
+                cout << "Nhap ma khach hang can sua: ";
                 cin.ignore();
-                getline(cin, ten);
-                kh.suaKhachHang(danhSach, ten);
+                getline(cin, mkh);
+                kh.suaKhachHang(danhSach, mkh);
                 break;
             case 5:
-                cout << "Nhap ten khach hang can xoa: ";
+                cout << "Nhap ma khach hang can xoa: ";
                 cin.ignore();
-                getline(cin, ten);
-                kh.xoakhachhang(danhSach, ten);
+                getline(cin, mkh);
+                kh.xoakhachhang(danhSach, mkh);
                 break;
             default : 
                 cout << "Chuc nang khong hop le! Vui long chon lai." <<endl;

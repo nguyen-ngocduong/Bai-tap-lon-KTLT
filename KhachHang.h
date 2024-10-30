@@ -13,10 +13,10 @@ public:
     void nhapthongtin();
     void luuDanhSachKhachHang(const vector<KhachHang>& danhSach);
     void themkhachhang(vector<KhachHang>& danhSach);
-    void timKiemKhachHang(const vector<KhachHang>& danhSach, const string& ten);
-    void suaKhachHang(vector<KhachHang>& danhSach, const string& ten);
+    void timKiemKhachHang(const vector<KhachHang>& danhSach, const string& MKH);
+    void suaKhachHang(vector<KhachHang>& danhSach, const string& MKH);
     void docdanhsach(vector<KhachHang>& danhSach);
-    void xoakhachhang(vector<KhachHang>& danhSach, const string& ten);
+    void xoakhachhang(vector<KhachHang>& danhSach, const string& MKH);
     //Getter
     string getMaKhachHang() const { return MaKhachHang; }
     string getTen() const { return Ten; }

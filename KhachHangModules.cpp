@@ -99,32 +99,32 @@ void KhachHang::docdanhsach(vector<KhachHang>& danhSach) {
     }
 }
 
-void KhachHang::xoakhachhang(vector<KhachHang>& danhSach, const string& ten) {
+void KhachHang::xoakhachhang(vector<KhachHang>& danhSach, const string& MKH) {
     for (size_t i = 0; i < danhSach.size(); ++i) {
-        if (danhSach[i].getTen() == ten) {
+        if (danhSach[i].getMaKhachHang() == MKH) {
             danhSach.erase(danhSach.begin() + i);
             luuDanhSachKhachHang(danhSach);
-            cout << "Da xoa khach hang: " << ten << endl;
+            cout << "Da xoa khach hang co ma: " << MKH << endl;
             return;
         }
     }
-    cout << "Khong tim thay khach hang voi ten: " << ten << endl;
+    cout << "Khong tim thay khach hang voi ma: " << MKH << endl;
 }
-void KhachHang::timKiemKhachHang(const vector<KhachHang>& danhSach, const string& ten) {
+void KhachHang::timKiemKhachHang(const vector<KhachHang>& danhSach, const string& MKH) {
     for (size_t i = 0; i < danhSach.size(); i++) {
-        if (danhSach[i].getTen() == ten) {
+        if (danhSach[i].getMaKhachHang() == MKH) {
             danhSach[i].hienThi(i + 1);
             return;
         }
     }
-    cout << "Khong tim thay khach hang voi ten: " << ten << endl;
+    cout << "Khong tim thay khach hang voi ma: " << MKH << endl;
 }
 
-void KhachHang::suaKhachHang(vector<KhachHang>& danhSach, const string& ten) {
+void KhachHang::suaKhachHang(vector<KhachHang>& danhSach, const string& MKH) {
     for (auto& kh : danhSach) {
-        if (kh.getTen() == ten) {
+        if (kh.getMaKhachHang() == MKH) {
             string temp;
-            cout << "Nhap thong tin moi cho khach hang " << ten << ":" << endl;
+            cout << "Nhap thong tin moi cho khach hang co ma" << MKH << ":" << endl;
             cout << "Ten: ";
             getline(cin, temp);
             kh.setTen(temp);
@@ -149,7 +149,7 @@ void KhachHang::suaKhachHang(vector<KhachHang>& danhSach, const string& ten) {
             return;
         }
     }
-    cout << "Khong tim thay khach hang voi ten: " << ten << endl;
+    cout << "Khong tim thay khach hang voi ma: " << MKH << endl;
 }
 
 void KhachHang::nhapthongtin() {
