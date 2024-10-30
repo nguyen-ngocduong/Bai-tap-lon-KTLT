@@ -17,9 +17,9 @@ public:
     void hienThi() const;
     void themDichVu(vector<DichVuUuDai>& danhSachDichVu);
     void hienThiDanhSachDichVu(const vector<DichVuUuDai>& danhSachDichVu);
-    void timKiemDichVu(const vector<DichVuUuDai>& danhSachDichVu, const string& tenKhachHang);
-    void suaDichVu(vector<DichVuUuDai>& danhSachDichVu, const string& tenKhachHang);
-    void xoaDichVu(vector<DichVuUuDai>& danhSachDichVu, const string& tenKhachHang);
+    void timKiemDichVu(const vector<DichVuUuDai>& danhSachDichVu, const string& thongTinLienHe);
+    void suaDichVu(vector<DichVuUuDai>& danhSachDichVu, const string& thongTinLienHe);
+    void xoaDichVu(vector<DichVuUuDai>& danhSachDichVu, const string& thongTinLienHe);
     void luuDanhSachDichVu(const vector<DichVuUuDai>& danhSachDichVu);
     // Getter và Setter
     void setTenKhachHang(const string& _tenKhachHang) { tenKhachHang = _tenKhachHang; }

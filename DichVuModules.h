@@ -73,7 +73,7 @@ void quanlydichvu() {
         cin >> choice;
         cin.ignore();
         
-        string tenKhachHang;  // Khai báo biến này chỉ một lần ở đây
+        string sdt;  // Khai báo biến này chỉ một lần ở đây
 
         switch(choice) {
             case 0:
@@ -86,19 +86,19 @@ void quanlydichvu() {
                 dv.hienThiDanhSachDichVu(danhSachDichVu);
                 break;
             case 3:
-                cout << "Nhap ten khach hang can tim dich vu uu dai: ";
-                getline(cin, tenKhachHang);
-                dv.timKiemDichVu(danhSachDichVu, tenKhachHang);
+                cout << "Nhap thong tin lien he khach hang can tim dich vu uu dai: ";
+                getline(cin, sdt);
+                dv.timKiemDichVu(danhSachDichVu, sdt);
                 break;
             case 4:
-                cout << "Nhap ten khach hang can sua dich vu uu dai: ";
-                getline(cin, tenKhachHang);
-                dv.suaDichVu(danhSachDichVu, tenKhachHang);
+                cout << "Nhap thong tin lien he khach hang can sua dich vu uu dai: ";
+                getline(cin, sdt);
+                dv.suaDichVu(danhSachDichVu, sdt);
                 break;
             case 5:
-                cout << "Nhap ten khach hang can xoa dich vu uu dai: ";
-                getline(cin, tenKhachHang);
-                dv.xoaDichVu(danhSachDichVu, tenKhachHang);
+                cout << "Nhap thong tin lien he khach hang can xoa dich vu uu dai: ";
+                getline(cin, sdt);
+                dv.xoaDichVu(danhSachDichVu, sdt);
                 break;
             default: 
                 cout << "Lua chon khong hop le. Vui long thu lai." << endl;

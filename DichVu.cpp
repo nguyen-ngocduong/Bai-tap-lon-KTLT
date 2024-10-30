@@ -95,22 +95,22 @@ void DichVuUuDai::hienThiDanhSachDichVu(const vector<DichVuUuDai>& danhSach) {
 }
 
 // Hàm tìm kiếm dịch vụ
-void DichVuUuDai::timKiemDichVu(const vector<DichVuUuDai>& danhSach, const string& tenKhachHang) {
+void DichVuUuDai::timKiemDichVu(const vector<DichVuUuDai>& danhSach, const string& thongTinLienHe) {
     for (const auto& dv : danhSach) {
-        if (dv.getTenKhachHang() == tenKhachHang) {
+        if (dv.getThongTinLienHe() == thongTinLienHe) {
             dv.hienThi();
             return;
         }
     }
-    cout << "Khong tim thay dich vu voi ten khach hang: " << tenKhachHang << endl;
+    cout << "Khong tim thay dich vu voi khach hang co lien he: " << thongTinLienHe << endl;
 }
 
 // Hàm sửa dịch vụ
-void DichVuUuDai::suaDichVu(vector<DichVuUuDai>& danhSach, const string& tenKhachHang) {
+void DichVuUuDai::suaDichVu(vector<DichVuUuDai>& danhSach, const string& thongTinLienHe) {
     for (auto& dv : danhSach) {
-        if (dv.getTenKhachHang() == tenKhachHang) {
+        if (dv.getThongTinLienHe() == thongTinLienHe) {
             string temp;
-            cout << "Nhap thong tin moi cho dich vu cua khach hang " << tenKhachHang << ":" << endl;
+            cout << "Nhap thong tin moi cho dich vu cua khach hang co thong tin lien he" << thongTinLienHe << ":" << endl;
 
             cout << "Ten khach hang: ";
             getline(cin, temp);
@@ -134,19 +134,19 @@ void DichVuUuDai::suaDichVu(vector<DichVuUuDai>& danhSach, const string& tenKhac
             return;
         }
     }
-    cout << "Khong tim thay dich vu voi ten khach hang: " << tenKhachHang << endl;
+    cout << "Khong tim thay dich vu voi khach hang co lien he: " << thongTinLienHe << endl;
 }
 
 // Hàm xóa dịch vụ
-void DichVuUuDai::xoaDichVu(vector<DichVuUuDai>& danhSach, const string& tenKhachHang) {
+void DichVuUuDai::xoaDichVu(vector<DichVuUuDai>& danhSach, const string& thongTinLienHe) {
     for (size_t i = 0; i < danhSach.size(); ++i) {
-        if (danhSach[i].getTenKhachHang() == tenKhachHang) {
+        if (danhSach[i].getThongTinLienHe() == thongTinLienHe) {
             danhSach.erase(danhSach.begin() + i);
             luuDanhSachDichVu(danhSach);
-            cout << "Da xoa dich vu cua khach hang: " << tenKhachHang << endl;
+            cout << "Da xoa dich vu cua khach hang co thong tin lien he: " << thongTinLienHe << endl;
             return;
         }
     }
-    cout << "Khong tim thay dich vu voi ten khach hang: " << tenKhachHang << endl;
+    cout << "Khong tim thay dich vu voi khach hang co thong tin lien he: " << thongTinLienHe << endl;
 }
 
