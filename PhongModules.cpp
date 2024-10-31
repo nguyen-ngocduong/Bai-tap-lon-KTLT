@@ -61,15 +61,31 @@ void Phong::docdanhsach(vector<Phong>& danhsachPhong) {
 
 void Phong::luudanhsach(const vector<Phong>& danhsachPhong) {
     ofstream file("logs/Phong.txt");
-    if (file.is_open()) {
-        for (const auto& ds : danhsachPhong) {
-            file << ds.getMaKhachHang() << "," << ds.getMaPhong() << "," << ds.getNgayDatPhong() << "," << ds.getNgayTraPhong() << "," << ds.getTrangThai() << "\n";
-        }
-        file.close();
-        cout << "Danh sach da duoc luu vao file thanh cong!\n";
-    } else {
+    if (!file) {
         cout << "Khong the mo file de luu!\n";
+        return;
     }
+    for (const auto& ds : danhsachPhong) {
+        // Tạo dòng thông tin
+        string line;
+        if (!ds.getMaKhachHang().empty()) line += ds.getMaKhachHang() + ",";
+        if (!ds.getMaPhong().empty()) line += ds.getMaPhong() + ",";
+        if (!ds.getNgayDatPhong().empty()) line += ds.getNgayDatPhong() + ",";
+        if (!ds.getNgayTraPhong().empty()) line += ds.getNgayTraPhong() + ",";
+        if (!ds.getTrangThai().empty()) line += ds.getTrangThai();
+
+        // Kiểm tra xem dòng có dữ liệu không trước khi ghi
+        if (!line.empty() && line.back() == ',') {
+            line.pop_back(); // Xóa dấu phẩy cuối nếu có
+        }
+
+        if (!line.empty()) {
+            file << line << "\n"; // Ghi vào file
+        }
+    }
+
+    file.close();
+    cout << "Danh sach da duoc luu vao file thanh cong!\n";
 }
 
 
