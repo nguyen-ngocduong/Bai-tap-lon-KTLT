@@ -15,6 +15,7 @@ private:
 
 public:
     void hienThi() const;
+    void taiDanhSachDichVu(vector<DichVuUuDai>& danhSach);
     void themDichVu(vector<DichVuUuDai>& danhSachDichVu);
     void hienThiDanhSachDichVu(const vector<DichVuUuDai>& danhSachDichVu);
     void timKiemDichVu(const vector<DichVuUuDai>& danhSachDichVu, const string& thongTinLienHe);

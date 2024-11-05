@@ -24,7 +24,7 @@ public:
     void suaphong(vector<Phong>& danhsachPhong, const string& MaPhong);
     void timkiemphong(const string& MaPhong);
     void docdanhsach(vector<Phong>& danhsachPhong);
-    
+    void kiemtraphong();
     // Getters
     string getMaPhong() const { return MaPhong; }
     string getMaKhachHang() const { return MaKhachHang; }

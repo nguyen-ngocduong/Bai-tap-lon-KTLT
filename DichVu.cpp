@@ -23,37 +23,36 @@ void DichVuUuDai::luuDanhSachDichVu(const vector<DichVuUuDai>& danhSach) {
         file << dv.getTenKhachHang() << "," << dv.getThongTinLienHe() << "," 
              << dv.getDiemTichLuy() << "," << dv.getMucDoThanThiet() << endl;
     }
-    file.close(); // Đảm bảo tệp được đóng
+    file.close(); 
 }
 
-// Hàm tải danh sách dịch vụ từ tệp
-// void DichVuUuDai::taiDanhSachDichVu(vector<DichVuUuDai>& danhSach) {
-//     ifstream file("logs/DichVu.txt");
-//     if (!file) {
-//         cerr << "Khong the mo tep de tai du lieu." << endl;
-//         return;
-//     }
-//     DichVuUuDai dv;
-//     string line;
-//     while (getline(file, line)) {
-//         stringstream ss(line);
-//         string temp;
+void DichVuUuDai::taiDanhSachDichVu(vector<DichVuUuDai>& danhSach) {
+    ifstream file("logs/DichVu.txt");
+    if (!file) {
+        cerr << "Khong the mo tep de tai du lieu." << endl;
+        return;
+    }
+    DichVuUuDai dv;
+    string line;
+    while (getline(file, line)) {
+        stringstream ss(line);
+        string temp;
 
-//         getline(ss, temp, ',');
-//         dv.setTenKhachHang(temp);
-//         getline(ss, temp, ',');
-//         dv.setThongTinLienHe(temp);
+        getline(ss, temp, ',');
+        dv.setTenKhachHang(temp);
+        getline(ss, temp, ',');
+        dv.setThongTinLienHe(temp);
         
-//         int diem;
-//         ss >> diem;
-//         dv.setDiemTichLuy(diem);
-//         getline(ss, temp);
-//         dv.setMucDoThanThiet(temp);
+        int diem;
+        ss >> diem;
+        dv.setDiemTichLuy(diem);
+        getline(ss, temp);
+        dv.setMucDoThanThiet(temp);
 
-//         danhSach.push_back(dv);
-//     }
-//     file.close(); // Đảm bảo tệp được đóng
-// }
+        danhSach.push_back(dv);
+    }
+    file.close(); // Đảm bảo tệp được đóng
+}
 
 // Hàm thêm dịch vụ
 void DichVuUuDai::themDichVu(vector<DichVuUuDai>& danhSach) {

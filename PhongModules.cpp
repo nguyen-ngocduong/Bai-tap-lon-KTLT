@@ -19,23 +19,47 @@ void Phong::nhapthongtin()  {
     cout << "Nhap Ngay Tra Phong: ";
 }
 void Phong::themphong(vector<Phong>& danhsachPhong, const string& maKhachHang, const string& ngayDat, const string& ngayTra) {
-    Phong p;
-    string temp;
+    ifstream infile("logs/Phong.txt");
+    vector<string> phongDaDat;
+    string line;
+    if(infile.is_open()){
+        while(getline(infile, line)){
+            stringstream ss(line);
+            string makh, maphong, ngaydat, ngaytra, trangthai;
+            getline(ss, makh, ',');
+            getline(ss, maphong, ',');
+            getline(ss, ngaydat, ',');
+            getline(ss, ngaytra, ',');
+            getline(ss, trangthai, ',');
 
+            phongDaDat.push_back(maphong); // Lưu mã phòng đã đặt
+        }
+        infile.close();
+    }
+    else {
+        cout << "Khong The Mo File!";
+        return;
+    }
+    string tmp;
     cout << "Nhap Ma Phong: ";
     cin.ignore();
-    getline(cin, temp);
-    p.setMaPhong(temp);
+    getline(cin, tmp);
 
-    p.setMaKhachHang(maKhachHang); // Gán mã khách hàng
-    p.setNgayDatPhong(ngayDat); // Gán ngày đặt phòng
-    p.setNgayTraPhong(ngayTra); // Gán ngày trả phòng
-    p.setTrangThai("Da Dat"); // Gán trạng thái (có thể thay đổi nếu cần)
+    // Kiểm tra xem mã phòng đã có trong danh sách phòng đã đặt chưa
+    if (find(phongDaDat.begin(), phongDaDat.end(), tmp) != phongDaDat.end()) {
+        cout << "Xin loi! Phong nay da co khach hang khac dat." << endl;
+        return; 
+    }
+    Phong p;
+    p.setMaPhong(tmp);
+    p.setMaKhachHang(maKhachHang); 
+    p.setNgayDatPhong(ngayDat); 
+    p.setNgayTraPhong(ngayTra); 
+    p.setTrangThai("Da Dat"); 
 
     danhsachPhong.push_back(p);
     luudanhsach(danhsachPhong);
 }
-
 void Phong::docdanhsach(vector<Phong>& danhsachPhong) {
     ifstream file("logs/Phong.txt");
     if (file.is_open()) {
@@ -188,4 +212,66 @@ void Phong::timkiemphong(const string& MaPhong) {
     }
     
     file.close(); // Đóng tệp
+}
+void Phong::kiemtraphong() {
+    ifstream infile1("logs/Phong.txt");
+    vector<string> phongDaDat;
+    string line;
+    if(!infile1) {
+        cerr << "Khong The Mo File!" << endl;
+        return;
+    }
+    else {
+        while (getline(infile1, line)) {
+            stringstream ss(line);
+            string maKhachHang, maPhong, ngayDat, ngayTra, trangThai;
+
+            getline(ss, maKhachHang, ',');
+            getline(ss, maPhong, ',');
+            getline(ss, ngayDat, ',');
+            getline(ss, ngayTra, ',');
+            getline(ss, trangThai, ',');
+
+            phongDaDat.push_back(maPhong); // Lưu mã phòng đã đặt
+        }
+        infile1.close();
+    }
+    ifstream infile2("logs/danh_sach_phong.txt");
+    vector<string> danhSachPhong;
+    vector<string> danhSachPhongCapNhat;
+    if (infile2.is_open()) {
+        while (getline(infile2, line)) {
+            stringstream ss(line);
+            string maPhong, soNguoi, trangThai, gia;
+
+            getline(ss, maPhong, ',');
+            getline(ss, soNguoi, ',');
+            getline(ss, trangThai, ',');
+            getline(ss, gia, ',');
+
+            // Kiểm tra xem mã phòng có trong danh sách phòng đã đặt không
+            if (find(phongDaDat.begin(), phongDaDat.end(), maPhong) != phongDaDat.end()) {
+                // Nếu phòng đã được đặt, cập nhật trạng thái thành "da dat"
+                trangThai = "da dat";
+            }
+
+            // Lưu lại dòng đã cập nhật
+            danhSachPhongCapNhat.push_back(maPhong + "," + soNguoi + "," + trangThai + "," + gia);
+        }
+        infile2.close();
+    } else {
+        cout << "Khong the mo file danh_sach_phong.txt!" << endl;
+        return;
+    }
+    // Ghi lại danh sách phòng đã cập nhật vào file
+    ofstream fileGhiLai("logs/danh_sach_phong.txt");
+    if (fileGhiLai.is_open()) {
+        for (const auto& phong : danhSachPhongCapNhat) {
+            fileGhiLai << phong << endl; // Ghi lại các phòng đã cập nhật
+        }
+        fileGhiLai.close();
+        cout << "Da cap nhat trang thai phong trong danh_sach_phong.txt!" << endl;
+    } else {
+        cout << "Khong the mo file de ghi!" << endl;
+    }
 }
