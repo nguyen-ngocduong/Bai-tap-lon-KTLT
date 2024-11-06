@@ -123,16 +123,82 @@ void Phong::xuatthongtin(vector<Phong>& danhsachPhong) {
     }
 }
 
-void Phong::xoaphong(vector<Phong>& danhsachPhong, const string& MaPhong) {
-    for(unsigned int i = 0; i < danhsachPhong.size(); i++){
-        if(danhsachPhong[i].MaPhong == MaPhong){
-            danhsachPhong.erase(danhsachPhong.begin() + i);
-            cout << "Xoa Phong Thanh Cong!" << endl;
-            luudanhsach(danhsachPhong);
-            return;
+void Phong::xoaphong(const string& maPhongCanXoa) {
+    ifstream infile1("logs/Phong.txt");
+    vector<string> phongConLai;
+    string line;
+    bool phongDaXoa = false;
+
+    if (!infile1) {
+        cerr << "Khong the mo file Phong.txt!" << endl;
+        return;
+    }
+
+    while (getline(infile1, line)) {
+        stringstream ss(line);
+        string maKhachHang, maPhong, ngayDat, ngayTra, trangThai;
+
+        getline(ss, maKhachHang, ',');
+        getline(ss, maPhong, ',');
+        getline(ss, ngayDat, ',');
+        getline(ss, ngayTra, ',');
+        getline(ss, trangThai, ',');
+
+        if (maPhong != maPhongCanXoa) {
+            phongConLai.push_back(line); // Giữ lại các phòng không bị xóa
+        } else {
+            phongDaXoa = true;
         }
     }
-    cout << "Khong Tim Thay Phong Can Xoa!" << endl;
+    infile1.close();
+
+    if (phongDaXoa) {
+        ofstream outfile1("logs/Phong.txt");
+        for (const auto& phong : phongConLai) {
+            outfile1 << phong << endl;
+        }
+        outfile1.close();
+        cout << "Phong " << maPhongCanXoa << " da duoc xoa khoi Phong.txt." << endl;
+    } else {
+        cout << "Khong tim thay phong can xoa trong Phong.txt!" << endl;
+    }
+
+    // Cập nhật file danh_sach_phong.txt
+    ifstream infile2("logs/danh_sach_phong.txt");
+    vector<string> danhSachPhongCapNhat;
+
+    if (!infile2) {
+        cerr << "Khong the mo file danh_sach_phong.txt!" << endl;
+        return;
+    }
+
+    while (getline(infile2, line)) {
+        stringstream ss(line);
+        string maPhong, soNguoi, trangThai, gia;
+
+        getline(ss, maPhong, ',');
+        getline(ss, soNguoi, ',');
+        getline(ss, trangThai, ',');
+        getline(ss, gia, ',');
+
+        if (maPhong == maPhongCanXoa) {
+            trangThai = "Trong"; 
+        }
+
+        danhSachPhongCapNhat.push_back(maPhong + "," + soNguoi + "," + trangThai + "," + gia);
+    }
+    infile2.close();
+
+    ofstream outfile2("logs/danh_sach_phong.txt");
+    if (outfile2.is_open()) {
+        for (const auto& phong : danhSachPhongCapNhat) {
+            outfile2 << phong << endl;
+        }
+        outfile2.close();
+        cout << "Trang thai cua phong " << maPhongCanXoa << " trong danh_sach_phong.txt da duoc cap nhat thanh 'trong'." << endl;
+    } else {
+        cerr << "Khong the mo file danh_sach_phong.txt de ghi!" << endl;
+    }
 }
 
 void Phong:: suaphong(vector<Phong>& danhsachPhong, const string& MaPhong) {

@@ -41,7 +41,7 @@ void quanlydatPhong(){
                 cout << "Nhap Phong Khach Hang Da Tra: ";
                 cin.ignore();
                 getline(cin, sophong);
-                phong.xoaphong(danhsachPhong, sophong);
+                phong.xoaphong(sophong);
                 break;
             case 4:
                 cout << "Nhap Phong Khach Hang Muon Doi: ";

@@ -20,7 +20,7 @@ public:
     void themphong(vector<Phong>& danhsachPhong, const string& maKhachHang, const string& ngayDat, const string& ngayTra);
     void xuatthongtin(vector<Phong>& danhsachPhong);
     void luudanhsach(const vector<Phong>& danhsachPhong);
-    void xoaphong(vector<Phong>& danhsachPhong, const string& MaPhong);
+    void xoaphong(const string& MaPhong);
     void suaphong(vector<Phong>& danhsachPhong, const string& MaPhong);
     void timkiemphong(const string& MaPhong);
     void docdanhsach(vector<Phong>& danhsachPhong);
